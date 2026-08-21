@@ -5,13 +5,13 @@ type RevealKind = "up" | "left" | "right" | "fade" | "zoom";
 
 interface AnimatedSectionProps {
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
   /** Direction of the entrance animation. */
-  reveal?: RevealKind;
+  reveal?: RevealKind | undefined;
   /** Stagger delay in milliseconds. */
-  delay?: number;
-  as?: ElementType;
-  id?: string;
+  delay?: number | undefined;
+  as?: ElementType | undefined;
+  id?: string | undefined;
 }
 
 /**
