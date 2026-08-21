@@ -1,24 +1,51 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { siteConfig } from "@/lib/site-config";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-warm">
+      <div
+        aria-hidden
+        className="animate-float absolute -top-24 -right-24 size-96 rounded-full bg-beige/40 blur-3xl"
       />
-    </div>
+      <div
+        aria-hidden
+        className="absolute -bottom-32 -left-20 size-80 rounded-full bg-terracotta/10 blur-3xl"
+      />
+
+      <div className="container-page relative pt-32 pb-24">
+        <AnimatedSection reveal="fade" className="max-w-3xl">
+          <p className="eyebrow flex items-center gap-3">
+            <span aria-hidden className="h-px w-10 bg-gold/60" />
+            {siteConfig.kicker}
+          </p>
+          <h1 className="mt-6 text-4xl leading-[1.05] text-balance-display text-brown-dark sm:text-6xl lg:text-7xl">
+            Celebrate. Stay.
+            <span className="block text-gold italic">Make Memories.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            From unforgettable celebrations to comfortable stays, {siteConfig.name} welcomes you with
+            warm hospitality in the heart of Chamba.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Button asChild variant="earth" size="xl">
+              <Link to="/halls">Explore Our Halls</Link>
+            </Button>
+            <Button asChild variant="outline" size="xl">
+              <Link to="/homestay">Book Your Stay</Link>
+            </Button>
+          </div>
+          <p className="mt-14 text-sm text-muted-foreground">
+            {siteConfig.address.line1} · {siteConfig.address.line2}
+          </p>
+        </AnimatedSection>
+      </div>
+    </section>
   );
 }
