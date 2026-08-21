@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Global scroll-reveal engine.
@@ -7,8 +7,6 @@ import { useEffect } from "react";
  */
 export function useReveal() {
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const reveal = (el: Element) => el.setAttribute("data-revealed", "true");
 
@@ -49,7 +47,7 @@ export function useReveal() {
 
 /** Tracks whether the page has scrolled past a threshold (for the navbar). */
 export function useScrolled(threshold = 24) {
-  const [scrolled, setScrolled] = useStateSafe(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > threshold);
@@ -59,10 +57,4 @@ export function useScrolled(threshold = 24) {
   }, [threshold]);
 
   return scrolled;
-}
-
-// Small local helper so this file has a single React import surface.
-import { useState } from "react";
-function useStateSafe(initial: boolean) {
-  return useState(initial);
 }
